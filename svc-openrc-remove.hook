@@ -5,5 +5,5 @@ Target = @svc@
 
 [Action]
 Description = Removing @svc OpenRC service...
-When = PostTransaction
+When = PreTransaction
 Exec = /usr/share/libalpm/scripts/@svc@-openrc remove
