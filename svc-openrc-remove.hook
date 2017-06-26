@@ -7,4 +7,3 @@ Target = @svc@
 Description = Removing @svc OpenRC service...
 When = PostTransaction
 Exec = /usr/share/libalpm/scripts/@svc@-openrc remove
-Depends = @svc@
