@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Type = Package
+Target = @svc@
+
+[Action]
+Description = Installing @svc@ OpenRC service...
+When = PostTransaction
+Exec = /usr/share/libalpm/scripts/@svc@-openrc install
+Depends = @svc@

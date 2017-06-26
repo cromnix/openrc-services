@@ -1,0 +1,57 @@
+#!/bin/bash
+
+. etc/cromnix.conf
+svenable=(@svc_enable@)
+svrun=(@svc_run@)
+svremove=(@svc_remove@)
+svlevel=@svlevel@
+
+# add services to a run level
+if [ "${1}" == 'install' ]; then
+	for sv in "${svenable[@]}"; do
+		if [ "${SVENABLE}" == 'yes' ]; then
+			rc-update add ${sv} ${svlevel}
+		fi
+	done
+fi
+
+# remove services from all run levels
+if [ "${1}" == 'remove' ]; then
+	for sv in "${svremove[@]}"; do
+		for _service in $(find /etc/openrc/runlevels/*/ -name "${sv}"); do
+			rm ${_service}
+		done
+	done
+fi
+
+# only if openrc is running, start or restart services
+if test -r run/openrc/softlevel; then
+	# start services
+	if [ "${1}" == 'install' ]; then
+		if [ "${SVSTART}" == 'yes' ]; then
+			for sv in "${svrun[@]}"; do
+				usr/lib/openrc/bin/service_started ${sv}
+				if [ "$?" -eq 1 ]; then
+					rc-service ${sv} start
+				fi
+			done
+		fi
+	fi
+	
+	# restart services
+	if [ "${1}" == 'upgrade' ]; then
+		for sv in "${svrun[@]}"; do
+			if [ "${SVRESTART}" == 'yes' ]; then
+				usr/lib/openrc/bin/service_started ${sv}
+				if [ "$?" -eq 0 ]; then
+					rc-service ${sv} restart
+				fi
+			else
+				usr/lib/openrc/bin/service_started ${sv}
+				if [ "$?" -eq 0 ]; then
+					echo "==> ${sv} needs to be restarted"
+				fi
+			fi
+		done
+	fi
+fi

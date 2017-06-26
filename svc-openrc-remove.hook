@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Remove
+Type = Package
+Target = @svc@
+
+[Action]
+Description = Removing @svc OpenRC service...
+When = PostTransaction
+Exec = /usr/share/libalpm/scripts/@svc@-openrc remove
+Depends = @svc@

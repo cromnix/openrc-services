@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = @svc@
+
+[Action]
+Description = Upgrading @svc@ OpenRC service...
+When = PostTransaction
+Exec = /usr/share/libalpm/scripts/@svc@-openrc upgrade
+Depends = @svc@
