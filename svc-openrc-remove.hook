@@ -4,6 +4,6 @@ Type = Package
 Target = @svc@
 
 [Action]
-Description = Removing @svc OpenRC service...
+Description = Removing @svc@ OpenRC service...
 When = PreTransaction
 Exec = /usr/share/libalpm/scripts/@svc@-openrc remove
