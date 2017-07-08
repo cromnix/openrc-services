@@ -20,6 +20,8 @@ install:
 	install -m0755 ${SCRIPTS} $(DESTDIR)$(SCRIPTDIR)
 	install -dm0755 $(DESTDIR)$(CONFDIR)
 	install -m0644 ${CONF} $(DESTDIR)$(CONFDIR)
+	sed -e "s/@CONFDIR@/${CONFDIR}/" -i $(DESTDIR)$(CONFDIR)/openrc-services.conf
+	sed -e "s/@CONFDIR@/${CONFDIR}/" -i $(DESTDIR)$(SCRIPTDIR)/svc-openrc.script
 
 uninstall:
 	for f in ${HOOKS}; do rm -f $(DESTDIR)$(HOOKDIR)/$$f; done
