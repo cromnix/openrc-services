@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. etc/cromnix.conf
+. etc/openrc-services.conf
 svenable=(@svc_enable@)
 svrun=(@svc_run@)
 svremove=(@svc_remove@)
